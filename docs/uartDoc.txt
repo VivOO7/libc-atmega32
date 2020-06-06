@@ -1,0 +1,1 @@
+The uart library provides functions to use the usart port of ATmega16 / ATmega16l microcontrollers.
