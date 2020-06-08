@@ -16,6 +16,12 @@ libc-atmega32/
 |___project/ (this directory contains all the libraries)
 |         |
 |         |___uart/
+|	  |
+|	  |___io/
+|	  |
+|         |___externInterrupt/
+|  	  |
+|	  |___Sleep/
 |
 |
 |___docs/ (this directory contains documentation for different libraries)
@@ -26,6 +32,12 @@ libc-atmega32/
 |___examples/ (this directory contains examples for different libraries)
 |          |
 |          |___uart/
+|	   |
+|	   |___io/
+|	   |
+|	   |___externInterrupt/
+|  	   |
+|	   |___Sleep/
 |
 |
 |___install/ (this directory contains softwares that need to be installed)
@@ -38,6 +50,9 @@ libc-atmega32/
 |         |___macOS/
 |
 |
+|___buildProgram/
+|
+|
 |___datasheet.pdf
 |
 |
@@ -45,5 +60,6 @@ libc-atmega32/
 |
 |
 |___ISSUES.txt
+
 
 
