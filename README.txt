@@ -7,7 +7,7 @@ url- https://github.com/parmAshu/libc-atmega32.git
 start date- 5/June/2020 
 target - ATMEGA32 peripheral drivers
 
-status- contains library for uart communication
+status- new libraries are being developed and added.
 device tested on- atmega32
 
 PROJECT LAYOUT-
