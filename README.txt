@@ -18,12 +18,12 @@ libc-atmega32/
 |___project/ (this directory contains all the libraries)
 |   |
 |   |___uart/
-|	  |
-|	  |___io/
-|	  |
+|   |
+|   |___io/
+|   |
 |   |___externInterrupt/
-|  	|
-|	  |___Sleep/
+|   |
+|   |___Sleep/
 |   |
 |   |___spi/
 |   |
@@ -40,12 +40,12 @@ libc-atmega32/
 |___examples/ (this directory contains examples for different libraries)
 |    |
 |    |___uart/
-|	   |
-|	   |___io/
-|	   |
-|	   |___externInterrupt/
-|  	 |
-|	   |___Sleep/
+|    |
+|    |___io/
+|    |
+|    |___externInterrupt/
+|    |
+|    |___Sleep/
 |
 |
 |___buildProgram/
@@ -55,9 +55,4 @@ libc-atmega32/
 |
 |
 |___README.txt
-|
-|
-|___ISSUES.txt
-
-
 

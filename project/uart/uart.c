@@ -1,18 +1,35 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
-#include <util/delay.h>
 
 #define BAUD_PRESCALER (((F_CPU/(UART_BAUD*16UL)))-1)
 
 #define SERIAL_BUFF_SIZE 50
 
-unsigned char rxBuffer[SERIAL_BUFF_SIZE]={0X00};
-uint8_t pos = 0;
+#define STRING_SIZE 50
 
-// uart recieve interrupt service routine
+#define STOP_CHAR -1
+
+static unsigned char rxBuffer[SERIAL_BUFF_SIZE]={0X00};
+static uint8_t inPos = 0;
+static uint8_t outPos = 0;
+static uint8_t filled = 0;
+
+char str[STRING_SIZE]={0X00};
+uint8_t ind=0;
+
+char strg[STRING_SIZE]={0X00};
+
+static char empty_str[]="";
+
+// uart receive interrupt service routine
 ISR(USART_RXC_vect)
 {
-	if(pos < SERIAL_BUFF_SIZE) rxBuffer[ pos ++ ] = UDR;
+	if(filled < SERIAL_BUFF_SIZE)
+	{
+		rxBuffer[ inPos ++ ] = UDR;
+		filled++;
+		if(inPos == SERIAL_BUFF_SIZE) inPos=0;
+	}
 }
 
 // function for initialization of uart port
@@ -72,15 +89,85 @@ void uartSend(char ch)
 	UDR = ch;
 }
 
-// function to read a character that was recieved through uart port
+//function to send a string of character through uart port
+void uartSendString(char *str)
+{
+	while( (*str) != '\0')
+	{
+		uartSend( *str );
+		str+=1;
+	}
+}
+
+// function to read a character that was received through uart port
 char uartRead(void)
 {
-	if( pos > 0 ) return rxBuffer[ --pos];
-	else return -1;
+	if( filled > 0 )
+	{
+		char data=rxBuffer[outPos++];
+		filled--;
+		if(outPos==SERIAL_BUFF_SIZE) outPos=0;
+		return data;
+	}
+	else return STOP_CHAR;
 }
 
 // function to disable uart port
 void uartDisable(void)
 {
 	UCSRB &= ( ~ ( (1<<RXEN) | (1<<TXEN) | (1<<RXCIE) ) );
+}
+
+// function to read a string of passed length, received through the uart port
+char * readString(uint16_t length)
+{
+	if(filled>=length)
+	{
+		for(unsigned int x=0;x<length;x++)
+			str[x]=uartRead();
+		str[length]='\0';
+		return str;
+	}
+	else
+	{
+		return empty_str;
+	}
+}
+
+// function to read a string delimited by the passed character, received through the uart port
+char * readStringUntil(char delimiter)
+{
+	if(filled)
+	{
+		char ch=uartRead();
+		if(ch==delimiter)
+		{
+			str[ind]='\0';
+			ind=0;
+			return str;
+		}
+		else
+		{
+			if(ind<STRING_SIZE-1)
+				str[ind++]=ch;
+			else
+			{
+				str[ind]='\0';
+				ind=0;
+				return str;
+			}
+			return empty_str;
+		}
+	}
+	else
+	{
+		return empty_str;
+	}
+}
+
+//function to print a character string to the uart port
+void uartPrintln(char *st)
+{
+	uartSendString(st);
+	uartSend('\n');
 }
