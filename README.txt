@@ -1,3 +1,5 @@
+COMMON PERIPHERAL DRIVER LIBRARIES FOR AVR ATMEGA32 DEVICE
+
 author- Ashutosh Singh Parmar
 github ID- parmAshu
 email- ashutoshsingh291999@gmail.com
@@ -6,7 +8,7 @@ start date- 5/June/2020
 target - ATMEGA32 peripheral drivers
 
 status- contains library for uart communication
-system tested on- atmega32
+device tested on- atmega32
 
 PROJECT LAYOUT-
 
@@ -14,14 +16,20 @@ libc-atmega32/
 |
 |
 |___project/ (this directory contains all the libraries)
-|         |
-|         |___uart/
+|   |
+|   |___uart/
 |	  |
 |	  |___io/
 |	  |
-|         |___externInterrupt/
-|  	  |
+|   |___externInterrupt/
+|  	|
 |	  |___Sleep/
+|   |
+|   |___spi/
+|   |
+|   |___String/
+|   |
+|   |___AT/
 |
 |
 |___docs/ (this directory contains documentation for different libraries)
@@ -30,24 +38,14 @@ libc-atmega32/
 |
 |
 |___examples/ (this directory contains examples for different libraries)
-|          |
-|          |___uart/
+|    |
+|    |___uart/
 |	   |
 |	   |___io/
 |	   |
 |	   |___externInterrupt/
-|  	   |
+|  	 |
 |	   |___Sleep/
-|
-|
-|___install/ (this directory contains softwares that need to be installed)
-|         |
-|         |
-|         |___windows/
-|         |
-|         |___linux/
-|         |
-|         |___macOS/
 |
 |
 |___buildProgram/
